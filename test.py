@@ -1,6 +1,5 @@
 import os
 import re
-from graphviz import Digraph
 
 
 class Commit:
@@ -83,7 +82,6 @@ class TreeBuilder:
             temp += node[1].message
             temp += "\""
             print(temp)
-            graph.edge(node[0].branch_name + " | " + node[0].message, node[1].branch_name + " | " + node[1].message)
         print("}")
 
 
@@ -107,13 +105,11 @@ def readFiles(path):
                 elif "merge" in line:
                     merge_name_match = re.search(r"merge (.+)", line)
                     merge_name = merge_name_match.group(1)
-                    commit = Commit(current_commit_id, commit_message, "merge", last_commit_id=last_commit_id,
-                                    merge_from=merge_name)
+                    commit = Commit(current_commit_id, commit_message, "merge", last_commit_id=last_commit_id, merge_from=merge_name)
                 elif "branch: Created from" in line:
                     branch_name_match = re.search(r"branch: Created from (.+)", line)
                     branch_name = branch_name_match.group(1)
-                    commit = Commit(current_commit_id, commit_message, "branch", last_commit_id=last_commit_id,
-                                    branch_from=branch_name)
+                    commit = Commit(current_commit_id, commit_message, "branch", last_commit_id=last_commit_id, branch_from=branch_name)
                 if commit is not None:
                     branch.add_commit(commit)
                 else:
@@ -122,17 +118,11 @@ def readFiles(path):
     return gd
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     # test_path = str(input("Введите путь к локальному репозиторию -> "))
-    # path = "D:/I am/Android/Мои проекты/CarAssistant/"
-    # path = "C:/Users/alvsh/AndroidStudioProjects/SpokenEnglishApp/"
-    # path = "C:/Users/alvsh/PycharmProjects/Conf5/"
     path = ""
-
-    graph = Digraph()
 
     process = readFiles(path)
     process.make_tree()
 
-    graph.render('dependency_graph.gv', view=True)
-####
+
