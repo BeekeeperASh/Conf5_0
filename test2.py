@@ -83,7 +83,7 @@ class TreeBuilder:
             temp += node[1].message
             temp += "\""
             print(temp)
-            #graph.edge(node[0].branch_name + " | " + node[0].message, node[1].branch_name + " | " + node[1].message)
+            graph.edge(node[0].branch_name + " | " + node[0].message, node[1].branch_name + " | " + node[1].message)
         print("}")
 
 
@@ -129,10 +129,10 @@ if __name__ == "main":
     # path = "C:/Users/alvsh/PycharmProjects/Conf5/"
     path = ""
 
-    #graph = Digraph()
+    graph = Digraph()
 
     process = readFiles(path)
     process.make_tree()
 
-    #graph.render('dependency_graph.gv', view=True)
+    graph.render('dependency_graph.gv', view=True)
 ####
